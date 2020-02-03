@@ -49,23 +49,24 @@ Community maintained fork of the
 
 - [Install](#install)
   - [Supported configurations:](#supported-configurations)
-  - [Minimum browser requirements for viewing the site:](#minimum-browser-requirements-for-viewing-the-site)
+  - [Recommended minimum browser versions for using Nightscout:](#recommended-minimum-browser-versions-for-using-nightscout)
   - [Windows installation software requirements:](#windows-installation-software-requirements)
   - [Installation notes for users with nginx or Apache reverse proxy for SSL/TLS offloading:](#installation-notes-for-users-with-nginx-or-apache-reverse-proxy-for-ssltls-offloading)
   - [Installation notes for Microsoft Azure, Windows:](#installation-notes-for-microsoft-azure-windows)
+- [Development](#development)
 - [Usage](#usage)
   - [Updating my version?](#updating-my-version)
-  - [What is my mongo string?](#what-is-my-mongo-string)
   - [Configure my uploader to match](#configure-my-uploader-to-match)
   - [Nightscout API](#nightscout-api)
       - [Example Queries](#example-queries)
   - [Environment](#environment)
     - [Required](#required)
-    - [Features/Labs](#featureslabs)
+    - [Features](#features)
     - [Alarms](#alarms)
     - [Core](#core)
     - [Predefined values for your browser settings (optional)](#predefined-values-for-your-browser-settings-optional)
     - [Predefined values for your server settings (optional)](#predefined-values-for-your-server-settings-optional)
+    - [Views](#views)
     - [Plugins](#plugins)
       - [Default Plugins](#default-plugins)
         - [`delta` (BG Delta)](#delta-bg-delta)
@@ -97,7 +98,7 @@ Community maintained fork of the
         - [`openaps` (OpenAPS)](#openaps-openaps)
         - [`loop` (Loop)](#loop-loop)
         - [`override` (Override Mode)](#override-override-mode)
-        - [`xdripjs` (xDrip-js)](#xdripjs-xdripjs)
+        - [`xdripjs` (xDrip-js)](#xdripjs-xdrip-js)
         - [`alexa` (Amazon Alexa)](#alexa-amazon-alexa)
         - [`googlehome` (Google Home/DialogFLow)](#googlehome-google-homedialogflow)
         - [`speech` (Speech)](#speech-speech)
@@ -109,6 +110,7 @@ Community maintained fork of the
   - [Setting environment variables](#setting-environment-variables)
     - [Vagrant install](#vagrant-install)
   - [More questions?](#more-questions)
+    - [Browser testing suite provided by](#browser-testing-suite-provided-by)
   - [License](#license)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -431,14 +433,15 @@ To learn more about the Nightscout API, visit https://YOUR-SITE.com/api-docs/ or
   * `BASAL_RENDER` (`none`) - Possible values are `none`, `default`, or `icicle` (inverted)
 
 ##### `bridge` (Share2Nightscout bridge)
-  Glucose reading directly from the Share service, uses these extended settings:
-  * `BRIDGE_USER_NAME` - Your user name for the Share service.
+  Glucose reading directly from the Dexcom Share service, uses these extended settings:
+  * `BRIDGE_USER_NAME` - Your username for the Share service.
   * `BRIDGE_PASSWORD` - Your password for the Share service.
-  * `BRIDGE_INTERVAL` (`150000` *2.5 minutes*) - The time to wait between each update.
+  * `BRIDGE_INTERVAL` (`150000` *2.5 minutes*) - The time (in milliseconds) to wait between each update.
   * `BRIDGE_MAX_COUNT` (`1`) - The number of records to attempt to fetch per update.
   * `BRIDGE_FIRST_FETCH_COUNT` (`3`) - Changes max count during the very first update only.
   * `BRIDGE_MAX_FAILURES` (`3`) - How many failures before giving up.
-  * `BRIDGE_MINUTES` (`1400`) - The time window to search for new data per update (default is one day in minutes).
+  * `BRIDGE_MINUTES` (`1400`) - The time window to search for new data per update (the default value is one day in minutes).
+  * `BRIDGE_SERVER` (``) - The default blank value is used to fetch data from Dexcom servers in the US. Set to (`EU`) to fetch from European servers instead.
 
 ##### `mmconnect` (MiniMed Connect bridge)
   Transfer real-time MiniMed Connect data from the Medtronic CareLink server into Nightscout ([read more](https://github.com/mddub/minimed-connect-to-nightscout))
@@ -583,7 +586,7 @@ For remote overrides, the following extended settings must be configured:
   Treatment Profile Fields:
 
   * `timezone` (Time Zone) - time zone local to the patient. *Should be set.*
-  * `units` (Profile Units) - blood glucose units used in the profile, either "mgdl" or "mmol"
+  * `units` (Profile Units) - blood glucose units used in the profile, either "mg/dl" or "mmol"
   * `dia` (Insulin duration) - value should be the duration of insulin action to use in calculating how much insulin is left active. Defaults to 3 hours.
   * `carbs_hr` (Carbs per Hour) - The number of carbs that are processed per hour, for more information see [#DIYPS](http://diyps.org/2014/05/29/determining-your-carbohydrate-absorption-rate-diyps-lessons-learned/).
   * `carbratio` (Carb Ratio) - grams per unit of insulin.
